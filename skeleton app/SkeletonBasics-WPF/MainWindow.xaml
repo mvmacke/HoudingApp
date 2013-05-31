@@ -50,21 +50,21 @@
         <Grid.Background>
             <ImageBrush Stretch="UniformToFill" ImageSource="Images/background.png" AlignmentY="Center" AlignmentX="Center"/>
         </Grid.Background>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Margin="0 0 0 20">
-            <ProgressBar x:Name="statusbar" Height="47" VerticalAlignment="Top" Width="300" Value="100"/>
-        </DockPanel>
-        <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <Viewbox Grid.Column="0" Stretch="Uniform" HorizontalAlignment="Center">
             <Image Name="Image" Width="640" Height="480"/>
         </Viewbox>
-        <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center">
+        <Viewbox Grid.Column="0" Stretch="Uniform" HorizontalAlignment="Center">
             <Image Name="Image1" Width="640" Height="480"/>
         </Viewbox>
-        <StatusBar Grid.Row="3" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}"/>
+        <DockPanel Grid.Column="1" Background="#FF095491" Margin="20">
+            <Image x:Name="sidebar_background" Source="Images/sidebar.png" />
+            <ProgressBar x:Name="statusbar" Height="40" VerticalAlignment="Top" Value="100" />
+        </DockPanel>
     </Grid>
 </Window>
