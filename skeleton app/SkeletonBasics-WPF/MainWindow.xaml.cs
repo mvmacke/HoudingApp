@@ -94,14 +94,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// Drawing image that we will display
         /// </summary>
         private DrawingImage imageSource;
-
-
-        private bool posstatus = true;
+        WMPLib.WindowsMediaPlayer a = new WMPLib.WindowsMediaPlayer();
+        private int posstatus = 0;
         private Brush greenbrush = new SolidColorBrush(Color.FromRgb(6, 167, 37));
         private Brush redbrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
         private Brush orangebrush = new SolidColorBrush(Color.FromRgb(255, 165, 0));
         private Brush greybrush = new SolidColorBrush(Color.FromRgb(230, 230, 230));
-        private Joint savedjoint = new Joint();
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
@@ -112,22 +110,27 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if (posstatus)
-            { // of iets anders
-                statusbar.Value++;
-                statusbar.Foreground = greenbrush;
-                if (statusbar.Value == 100) statusbar.Background = greybrush;
-            }
-            else
-            {
+            if (posstatus != 0)
+            { 
                 statusbar.Value--;
                 if (statusbar.Value == 0)
                 {
                     statusbar.Background = redbrush;
+                    if(a.status == ""){                        
+                        a.URL = "alarm.mp3";
+                        a.controls.play();
+                    }
                 }
+                else if (statusbar.Background == redbrush) statusbar.Foreground = greenbrush;
                 else if (statusbar.Value < 25) statusbar.Foreground = redbrush;
                 else if (statusbar.Value < 50) statusbar.Foreground = orangebrush;
                 else statusbar.Foreground = greenbrush;
+            }
+            else
+            {
+                statusbar.Value++;
+                statusbar.Foreground = greenbrush;
+                if (statusbar.Value == 100) statusbar.Background = greybrush;               
             }            
             statusbar.UpdateLayout();
         }
@@ -175,9 +178,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 TransformSmoothParameters smooth = new TransformSmoothParameters();
                 smooth.Correction = 0.01f;
                 smooth.JitterRadius = 0.01f;
-                smooth.MaxDeviationRadius = 1.0f;
+                smooth.MaxDeviationRadius = 0.5f;
                 smooth.Prediction = 0.5f;
-                smooth.Smoothing = 0.99f;
+                smooth.Smoothing = 0.9f;
                 // Turn on the skeleton stream to receive skeleton frames
                 this.sensor.SkeletonStream.Enable(smooth);
 
@@ -266,6 +269,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
+                            Joint shoulderCenter = (from j in skel.Joints where j.JointType == JointType.ShoulderCenter select j).FirstOrDefault();
+                            Joint hipCenter = (from j in skel.Joints where j.JointType == JointType.HipCenter select j).FirstOrDefault();
+                            double x = shoulderCenter.Position.X - hipCenter.Position.X;
+                            double y = shoulderCenter.Position.Y - hipCenter.Position.Y;
+                            double degrees = Math.Atan2(x, y) * 180/Math.PI;
+                            if(degrees < -15) posstatus = -1;
+                            else if(degrees > 15) posstatus = 1;
+                            else posstatus = 0;
+                            debug.Content = "" + degrees + " " + x + " " + y;//debug                            
                             this.DrawBonesAndJoints(skel, dc);
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
@@ -324,11 +336,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
             {
-                Brush drawBrush = null;
-                if (savestatus && joint.JointType.ToString() == "ShoulderCenter")
-                {
-                    savedjoint = joint;
-                }
+                Brush drawBrush = null;                
                 if (joint.TrackingState == JointTrackingState.Tracked)
                 {
                     if (joint.JointType.ToString() == "ShoulderCenter" || joint.JointType.ToString() == "HipCenter")
@@ -418,16 +426,5 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 }
             }
         }
-
-        private void Window_KeyUp_1(object sender, KeyEventArgs e)
-        {            
-            posstatus = !posstatus;
-        }
-        private bool savestatus = false;
-        private void possave_Click(object sender, RoutedEventArgs e)
-        {
-            savestatus = true;
-        }
-
     }
 }
