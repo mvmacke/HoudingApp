@@ -171,8 +171,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 //turn on features that you need
                 this.sensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
                 this.sensor.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
+
+                TransformSmoothParameters smooth = new TransformSmoothParameters();
+                smooth.Correction = 0.01f;
+                smooth.JitterRadius = 0.01f;
+                smooth.MaxDeviationRadius = 1.0f;
+                smooth.Prediction = 0.5f;
+                smooth.Smoothing = 0.99f;
                 // Turn on the skeleton stream to receive skeleton frames
-                this.sensor.SkeletonStream.Enable();
+                this.sensor.SkeletonStream.Enable(smooth);
 
                 // Add an event handler to be called whenever there is new color frame data
                 this.sensor.SkeletonFrameReady += this.SensorSkeletonFrameReady;
