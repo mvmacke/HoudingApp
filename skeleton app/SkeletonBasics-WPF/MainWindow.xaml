@@ -129,7 +129,11 @@
                                         <DoubleAnimation 
         									Storyboard.TargetName="rotation_bad" 
         									Storyboard.TargetProperty="Angle" 
-        									From="-60" To="60" Duration="0:0:4" AutoReverse="True"  RepeatBehavior="Forever"/>
+        									From="90" To="0" Duration="0:0:4" AutoReverse="True"  RepeatBehavior="Forever"/>
+                                        <DoubleAnimation 
+        									Storyboard.TargetName="rotation_good" 
+        									Storyboard.TargetProperty="Angle" 
+        									From="0" To="-90" Duration="0:0:4" AutoReverse="True"  RepeatBehavior="Forever"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -149,10 +153,10 @@
                                 <DirectionalLight Color="#FFFFFF" Direction="0.612372,-0.5,-0.612372" />
                             </ModelVisual3D.Content>
                         </ModelVisual3D>
+
+                        <!-- Bad posture! -->
                         <ModelVisual3D>
                             <ModelVisual3D.Content>
-                                
-                                <!-- Bad posture! -->
                                 <GeometryModel3D>
                                     <GeometryModel3D.Geometry>
                                         <MeshGeometry3D
@@ -174,6 +178,46 @@
                                         <RotateTransform3D>
                                             <RotateTransform3D.Rotation>
                                                 <AxisAngleRotation3D x:Name="rotation_bad" Axis="0,1,0" Angle="0" />
+                                            </RotateTransform3D.Rotation>
+                                        </RotateTransform3D>
+                                    </GeometryModel3D.Transform>
+                                </GeometryModel3D>
+                            </ModelVisual3D.Content>
+                            <ModelVisual3D.Transform>
+                                <Transform3DGroup>
+                                    <RotateTransform3D d:EulerAngles="0,0,0.0">
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0,0,1" Angle="180"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                </Transform3DGroup>
+                            </ModelVisual3D.Transform>
+                        </ModelVisual3D>
+
+                        <!-- Bad posture! -->
+                        <ModelVisual3D>
+                            <ModelVisual3D.Content>
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D
+        									TriangleIndices="0,1,2 3,4,5 "
+        									Normals="0,0,1 0,0,1 0,0,1 0,0,1 0,0,1 0,0,1"
+        									TextureCoordinates="0,0 1,0 1,1 1,1 0,1 0,0"
+        									Positions="-0.5,-0.5,0.5 0.5,-0.5,0.5 0.5,0.5,0.5 0.5,0.5,0.5 -0.5,0.5,0.5 -0.5,-0.5,0.5" />
+                                    </GeometryModel3D.Geometry>
+                                    <GeometryModel3D.Material>
+                                        <MaterialGroup>
+                                            <DiffuseMaterial>
+                                                <DiffuseMaterial.Brush>
+                                                    <ImageBrush ImageSource="Images/houding-goed.jpg"/>
+                                                </DiffuseMaterial.Brush>
+                                            </DiffuseMaterial>
+                                        </MaterialGroup>
+                                    </GeometryModel3D.Material>
+                                    <GeometryModel3D.Transform>
+                                        <RotateTransform3D>
+                                            <RotateTransform3D.Rotation>
+                                                <AxisAngleRotation3D x:Name="rotation_good" Axis="0,1,0" Angle="45" />
                                             </RotateTransform3D.Rotation>
                                         </RotateTransform3D>
                                     </GeometryModel3D.Transform>
