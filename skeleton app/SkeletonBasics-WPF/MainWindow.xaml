@@ -46,7 +46,10 @@
         </Style>
     </Window.Resources>
 
-    <Grid Name="layoutGrid" Margin="10 0 10 0">
+    <Grid Name="layoutGrid">
+        <Grid.Background>
+            <ImageBrush Stretch="UniformToFill" ImageSource="Images/background.png" AlignmentY="Center" AlignmentX="Center"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
