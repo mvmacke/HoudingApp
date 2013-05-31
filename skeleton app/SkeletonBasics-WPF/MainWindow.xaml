@@ -167,7 +167,7 @@
                                         <MeshGeometry3D
         									TriangleIndices="0,1,2 3,4,5 "
         									Normals="0,0,1 0,0,1 0,0,1 0,0,1 0,0,1 0,0,1"
-        									TextureCoordinates="0,0 1,0 1,1 1,1 0,1 0,0"
+        									TextureCoordinates="1,0 0,0 0,1 0,1 1,1 1,0"
         									Positions="-0.5,-0.5,0.5 0.5,-0.5,0.5 0.5,0.5,0.5 0.5,0.5,0.5 -0.5,0.5,0.5 -0.5,-0.5,0.5" />
                                     </GeometryModel3D.Geometry>
                                     <GeometryModel3D.Material>
@@ -207,7 +207,7 @@
                                         <MeshGeometry3D
         									TriangleIndices="0,1,2 3,4,5 "
         									Normals="0,0,1 0,0,1 0,0,1 0,0,1 0,0,1 0,0,1"
-        									TextureCoordinates="0,0 1,0 1,1 1,1 0,1 0,0"
+        									TextureCoordinates="1,0 0,0 0,1 0,1 1,1 1,0"
         									Positions="-0.5,-0.5,0.5 0.5,-0.5,0.5 0.5,0.5,0.5 0.5,0.5,0.5 -0.5,0.5,0.5 -0.5,-0.5,0.5" />
                                     </GeometryModel3D.Geometry>
                                     <GeometryModel3D.Material>
