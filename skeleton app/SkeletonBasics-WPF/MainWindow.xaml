@@ -85,11 +85,19 @@
                                     <DoubleAnimation 
         									Storyboard.TargetName="rotation_bad" 
         									Storyboard.TargetProperty="Angle" 
-        									From="0" To="90" Duration="0:0:1" />
+        									From="0" To="90" Duration="0:0:0.8">
+                                        <DoubleAnimation.EasingFunction>
+                                            <ElasticEase EasingMode="EaseOut" Oscillations="1" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
                                     <DoubleAnimation 
         									Storyboard.TargetName="rotation_good" 
         									Storyboard.TargetProperty="Angle" 
-        									From="-90" To="0" Duration="0:0:1" />
+        									From="-90" To="0" Duration="0:0:0.8">
+                                        <DoubleAnimation.EasingFunction>
+                                            <ElasticEase EasingMode="EaseOut" Oscillations="1" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -101,11 +109,19 @@
                                     <DoubleAnimation 
         									Storyboard.TargetName="rotation_bad" 
         									Storyboard.TargetProperty="Angle" 
-        									From="90" To="0" Duration="0:0:1" />
+        									From="90" To="0" Duration="0:0:0.8">
+                                        <DoubleAnimation.EasingFunction>
+                                            <ElasticEase EasingMode="EaseOut" Oscillations="1" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
                                     <DoubleAnimation 
         									Storyboard.TargetName="rotation_good" 
         									Storyboard.TargetProperty="Angle" 
-        									From="0" To="-90" Duration="0:0:1" />
+        									From="0" To="-90" Duration="0:0:0.8">
+                                        <DoubleAnimation.EasingFunction>
+                                            <ElasticEase EasingMode="EaseOut" Oscillations="1" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
