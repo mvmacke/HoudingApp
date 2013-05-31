@@ -4,9 +4,6 @@
         Title="Skeleton Basics" Height="768" Width="1024" Loaded="WindowLoaded" Closing="WindowClosing" KeyUp="Window_KeyUp_1">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e"/>
-        <SolidColorBrush x:Key="KinectPurpleBrush" Color="#ff52318f"/>
-        <SolidColorBrush x:Key="KinectBlueBrush" Color="#ff00BCF2"/>
         <Style TargetType="{x:Type Image}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
         </Style>
@@ -63,8 +60,21 @@
             <Image Name="Image1" Width="640" Height="480"/>
         </Viewbox>
         <DockPanel Grid.Column="1" Background="#FF095491" Margin="20">
-            <Image x:Name="sidebar_background" Source="Images/sidebar.png" />
-            <ProgressBar x:Name="statusbar" Height="40" VerticalAlignment="Top" Value="100" />
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="Images/sidebar.png" AlignmentY="Center" AlignmentX="Center"/>
+                </Grid.Background>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image Height="698" Margin="20" VerticalAlignment="Top" Width="100" Source="Images/Logo.png" HorizontalAlignment="Left"/>
+                <Label Content="SitUp" Foreground="#FDFFFFFF" Cursor="None" FontSize="40" Margin="30" HorizontalAlignment="Right" />
+                <ProgressBar Grid.Row="1" x:Name="statusbar" Width="200" Height="50" Value="100" VerticalAlignment="Top" />
+            
+                
+            </Grid>
+            
         </DockPanel>
     </Grid>
 </Window>
