@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Microsoft.Samples.Kinect.SkeletonBasics.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Skeleton Basics" Height="735" Width="770" Loaded="WindowLoaded" Closing="WindowClosing">
+        Title="Skeleton Basics" Height="768" Width="1024" Loaded="WindowLoaded" Closing="WindowClosing" KeyUp="Window_KeyUp_1">
 
     <Window.Resources>
         <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e"/>
@@ -55,7 +55,7 @@
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0 0 0 20">
             <Image DockPanel.Dock="Left" Source="Images\Logo.png" Stretch="Fill" Height="32" Width="81" Margin="0 10 0 5"/>
-            <Button x:Name="savestate" DockPanel.Dock="Right" Content="Save state" HorizontalAlignment="Right"  Height="35" Width="75" Click="savestate_Click"/>
+            <ProgressBar x:Name="statusbar" Height="47" VerticalAlignment="Top" Width="300" Value="100"/>
         </DockPanel>
         <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center">
             <Image Name="Image" Width="640" Height="480"/>
@@ -68,6 +68,7 @@
             <StatusBarItem Padding="0 0 0 10">
                 <TextBlock Name="statusBarText" Margin="-1 0 0 0">Click 'Seated' to change skeletal pipeline type!</TextBlock>
             </StatusBarItem>
-        </StatusBar>       
+        </StatusBar>
+        <Button x:Name="possave" Content="I'm in place" HorizontalAlignment="Left" Margin="489,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="possave_Click"/>
     </Grid>
 </Window>

@@ -20,6 +20,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Kinect;
 using System.Diagnostics;
+using System.Globalization;
 
 
 namespace Microsoft.Samples.Kinect.SkeletonBasics
@@ -94,52 +95,41 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         private DrawingImage imageSource;
 
+
+        private bool posstatus = true;
+        private Brush greenbrush = new SolidColorBrush(Color.FromRgb(6, 167, 37));
+        private Brush redbrush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+        private Brush orangebrush = new SolidColorBrush(Color.FromRgb(255, 165, 0));
+        private Brush greybrush = new SolidColorBrush(Color.FromRgb(230, 230, 230));
+        private Joint savedjoint = new Joint();
         /// <summary>
         /// Initializes a new instance of the MainWindow class.
         /// </summary>
         public MainWindow()
         {
             InitializeComponent();
-        }
+        }        
 
-        /// <summary>
-        /// Draws indicators to show which edges are clipping skeleton data
-        /// </summary>
-        /// <param name="skeleton">skeleton to draw clipping information for</param>
-        /// <param name="drawingContext">drawing context to draw to</param>
-        private static void RenderClippedEdges(Skeleton skeleton, DrawingContext drawingContext)
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if (skeleton.ClippedEdges.HasFlag(FrameEdges.Bottom))
-            {
-                drawingContext.DrawRectangle(
-                    Brushes.Red,
-                    null,
-                    new Rect(0, RenderHeight - ClipBoundsThickness, RenderWidth, ClipBoundsThickness));
+            if (posstatus)
+            { // of iets anders
+                statusbar.Value++;
+                statusbar.Foreground = greenbrush;
+                if (statusbar.Value == 100) statusbar.Background = greybrush;
             }
-
-            if (skeleton.ClippedEdges.HasFlag(FrameEdges.Top))
+            else
             {
-                drawingContext.DrawRectangle(
-                    Brushes.Red,
-                    null,
-                    new Rect(0, 0, RenderWidth, ClipBoundsThickness));
-            }
-
-            if (skeleton.ClippedEdges.HasFlag(FrameEdges.Left))
-            {
-                drawingContext.DrawRectangle(
-                    Brushes.Red,
-                    null,
-                    new Rect(0, 0, ClipBoundsThickness, RenderHeight));
-            }
-
-            if (skeleton.ClippedEdges.HasFlag(FrameEdges.Right))
-            {
-                drawingContext.DrawRectangle(
-                    Brushes.Red,
-                    null,
-                    new Rect(RenderWidth - ClipBoundsThickness, 0, ClipBoundsThickness, RenderHeight));
-            }
+                statusbar.Value--;
+                if (statusbar.Value == 0)
+                {
+                    statusbar.Background = redbrush;
+                }
+                else if (statusbar.Value < 25) statusbar.Foreground = redbrush;
+                else if (statusbar.Value < 50) statusbar.Foreground = orangebrush;
+                else statusbar.Foreground = greenbrush;
+            }            
+            statusbar.UpdateLayout();
         }
 
         /// <summary>
@@ -149,9 +139,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="e">event arguments</param>
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0,0,0,0,100);
+            dispatcherTimer.Start();
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
-
             // Create an image source that we can use in our image control
             this.imageSource = new DrawingImage(this.drawingGroup);
 
@@ -174,7 +167,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             if (null != this.sensor)
             {
                 this.sensor.AllFramesReady += new EventHandler<AllFramesReadyEventArgs>(newSensor_AllFramesReady);//cc
-
+                
                 //turn on features that you need
                 this.sensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
                 this.sensor.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
@@ -262,7 +255,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     foreach (Skeleton skel in skeletons)
                     {
-                        RenderClippedEdges(skel, dc);
+                        //RenderClippedEdges(skel, dc);
 
                         if (skel.TrackingState == SkeletonTrackingState.Tracked)
                         {
@@ -293,46 +286,54 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
         {
             // Render Torso
-            this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
-            this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderRight);
-            this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.Spine);
-            this.DrawBone(skeleton, drawingContext, JointType.Spine, JointType.HipCenter);
-            this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipRight);
+            //this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter);
+            //this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft);
+            //this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderRight);
+            //this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.Spine);
+            //this.DrawBone(skeleton, drawingContext, JointType.Spine, JointType.HipCenter);
+            //this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipLeft);
+            //this.DrawBone(skeleton, drawingContext, JointType.HipCenter, JointType.HipRight);
 
-            // Left Arm
-            this.DrawBone(skeleton, drawingContext, JointType.ShoulderLeft, JointType.ElbowLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.ElbowLeft, JointType.WristLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.WristLeft, JointType.HandLeft);
+            //// Left Arm
+            //this.DrawBone(skeleton, drawingContext, JointType.ShoulderLeft, JointType.ElbowLeft);
+            //this.DrawBone(skeleton, drawingContext, JointType.ElbowLeft, JointType.WristLeft);
+            //this.DrawBone(skeleton, drawingContext, JointType.WristLeft, JointType.HandLeft);
 
-            // Right Arm
-            this.DrawBone(skeleton, drawingContext, JointType.ShoulderRight, JointType.ElbowRight);
-            this.DrawBone(skeleton, drawingContext, JointType.ElbowRight, JointType.WristRight);
-            this.DrawBone(skeleton, drawingContext, JointType.WristRight, JointType.HandRight);
+            //// Right Arm
+            //this.DrawBone(skeleton, drawingContext, JointType.ShoulderRight, JointType.ElbowRight);
+            //this.DrawBone(skeleton, drawingContext, JointType.ElbowRight, JointType.WristRight);
+            //this.DrawBone(skeleton, drawingContext, JointType.WristRight, JointType.HandRight);
 
-            // Left Leg
-            this.DrawBone(skeleton, drawingContext, JointType.HipLeft, JointType.KneeLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.KneeLeft, JointType.AnkleLeft);
-            this.DrawBone(skeleton, drawingContext, JointType.AnkleLeft, JointType.FootLeft);
+            //// Left Leg
+            //this.DrawBone(skeleton, drawingContext, JointType.HipLeft, JointType.KneeLeft);
+            //this.DrawBone(skeleton, drawingContext, JointType.KneeLeft, JointType.AnkleLeft);
+            //this.DrawBone(skeleton, drawingContext, JointType.AnkleLeft, JointType.FootLeft);
 
-            // Right Leg
-            this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight);
-            this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
-            this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
+            //// Right Leg
+            //this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight);
+            //this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
+            //this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
  
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
             {
                 Brush drawBrush = null;
-
+                if (savestatus && joint.JointType.ToString() == "ShoulderCenter")
+                {
+                    savedjoint = joint;
+                }
                 if (joint.TrackingState == JointTrackingState.Tracked)
                 {
-                    drawBrush = this.trackedJointBrush;                    
+                    if (joint.JointType.ToString() == "ShoulderCenter" || joint.JointType.ToString() == "HipCenter")
+                    {
+                        drawBrush = this.trackedJointBrush;
+                        string text = joint.Position.X.ToString() + joint.Position.Y.ToString() + joint.Position.Z.ToString();
+                        drawingContext.DrawText(new FormattedText(text, CultureInfo.GetCultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface("Verdana"), 12, System.Windows.Media.Brushes.Tomato), SkeletonPointToScreen(joint.Position));
+                    }
                 }
                 else if (joint.TrackingState == JointTrackingState.Inferred)
                 {
-                    drawBrush = this.inferredJointBrush;                    
+                    //drawBrush = this.inferredJointBrush;
                 }
 
                 if (drawBrush != null)
@@ -411,9 +412,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        private void savestate_Click(object sender, RoutedEventArgs e)
+        private void Window_KeyUp_1(object sender, KeyEventArgs e)
+        {            
+            posstatus = !posstatus;
+        }
+        private bool savestatus = false;
+        private void possave_Click(object sender, RoutedEventArgs e)
         {
-            
+            savestatus = true;
         }
 
     }
