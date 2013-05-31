@@ -107,15 +107,6 @@
     <Resource Include="Images\UncheckedHover.png" />
     <Resource Include="Images\UncheckedNormal.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\background.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\houding-goed.jpg" />
-    <Resource Include="Images\houding-slecht.jpg" />
-    <Resource Include="Images\sidebar.png" />
-    <Resource Include="Images\Situp-app.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
