@@ -131,8 +131,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 statusbar.Value++;
                 statusbar.Foreground = greenbrush;
                 if (statusbar.Value == 100) statusbar.Background = greybrush;               
-            }            
-            statusbar.UpdateLayout();
+            }
+            testbox.IsChecked = posstatus == 0;
         }
 
         /// <summary>

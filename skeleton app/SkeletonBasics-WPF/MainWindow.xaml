@@ -5,6 +5,8 @@
         Title="Skeleton Basics" Height="768" Width="1024" Loaded="WindowLoaded" Closing="WindowClosing" >
 
     <Window.Resources>
+       
+        
         <Style TargetType="{x:Type Image}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
         </Style>
@@ -74,10 +76,10 @@
                 <Label Content="SitUp" Foreground="#FDFFFFFF" Cursor="None" FontSize="40" Margin="30" HorizontalAlignment="Right" />
 
                 <ProgressBar Grid.Row="1" x:Name="statusbar" Width="200" Height="50" Value="100" VerticalAlignment="Top" />
-                <Image x:Name="posture_img" HorizontalAlignment="Center" Height="150"  Grid.Row="1" VerticalAlignment="Top" Width="150" Margin="0 80 0 0" Source="Images/houding-slecht.jpg"/>
-
-                <CheckBox Grid.Row="1" Content="On/Off" IsChecked="False" Margin="10">
+                
+                <CheckBox x:Name="testbox" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="10">
                     <CheckBox.Triggers>
+                       
                         <EventTrigger RoutedEvent="ToggleButton.Checked">
                             <!-- Rotate to good -->
                             <BeginStoryboard>
@@ -128,7 +130,7 @@
                     </CheckBox.Triggers>
                 </CheckBox>
 
-                <Canvas Grid.Row="1" Margin="0 200 0 0">
+                <Canvas Grid.Row="1" Margin="0 20 0 0">
 
                     <!-- The Viewport3D provides a rendering surface for 3-D visual content. -->
                     <Viewport3D x:Name="MyAnimatedObject"
