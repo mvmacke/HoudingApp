@@ -88,6 +88,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Images\staand.jpg" />
     <Resource Include="Images\houding-fout1.jpg" />
     <Resource Include="Images\houding-fout2.png" />
     <EmbeddedResource Include="Properties\Resources.resx">

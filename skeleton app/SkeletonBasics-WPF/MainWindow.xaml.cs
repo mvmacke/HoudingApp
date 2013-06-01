@@ -136,6 +136,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             pos_bad1.IsChecked = posstatus == -1;
             pos_bad2.IsChecked = posstatus == 1;
             pos_good.IsChecked = posstatus == 0;
+
+            pos_sitting.IsChecked = true;
         }
 
         /// <summary>

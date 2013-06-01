@@ -136,6 +136,40 @@
                     </CheckBox.Triggers>
                 </CheckBox>
 
+                <CheckBox x:Name="pos_sitting" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="60">
+                    <CheckBox.Triggers>
+                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                            <!-- Rotate to standing -->
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation 
+        									Storyboard.TargetName="sitting_rotation" 
+        									Storyboard.TargetProperty="Angle" 
+        									To="-90" Duration="0:0:0.8">
+                                        <DoubleAnimation.EasingFunction>
+                                            <ElasticEase EasingMode="EaseOut" Oscillations="1" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation 
+        									Storyboard.TargetName="sitting_rotation" 
+        									Storyboard.TargetProperty="Angle" 
+        									To="0" Duration="0:0:0.8">
+                                        <DoubleAnimation.EasingFunction>
+                                            <ElasticEase EasingMode="EaseOut" Oscillations="1" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </CheckBox.Triggers>
+                </CheckBox>
+
                 <Canvas Grid.Row="1" Margin="0 20 0 0">
 
                     <!-- The Viewport3D provides a rendering surface for 3-D visual content. -->
@@ -242,6 +276,32 @@
                                             </RotateTransform3D>
                                         </GeometryModel3D.Transform>
                                     </GeometryModel3D>
+
+                                    <GeometryModel3D>
+                                        <GeometryModel3D.Geometry>
+                                            <MeshGeometry3D
+        									TriangleIndices="0,1,2 3,4,5 "
+        									Normals="0,0,1 0,0,1 0,0,1 0,0,1 0,0,1 0,0,1"
+        									TextureCoordinates="1,0 0,0 0,1 0,1 1,1 1,0"
+        									Positions="-0.5,-0.5,0.5 0.5,-0.5,0.5 0.5,0.5,0.5 0.5,0.5,0.5 -0.5,0.5,0.5 -0.5,-0.5,0.5" />
+                                        </GeometryModel3D.Geometry>
+                                        <GeometryModel3D.Material>
+                                            <MaterialGroup>
+                                                <DiffuseMaterial>
+                                                    <DiffuseMaterial.Brush>
+                                                        <ImageBrush ImageSource="Images/staand.jpg"/>
+                                                    </DiffuseMaterial.Brush>
+                                                </DiffuseMaterial>
+                                            </MaterialGroup>
+                                        </GeometryModel3D.Material>
+                                        <GeometryModel3D.Transform>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="1,0,0" Angle="-90" />
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                        </GeometryModel3D.Transform>
+                                    </GeometryModel3D>
                                 </Model3DGroup>
                             </ModelVisual3D.Content>
                             <ModelVisual3D.Transform>
@@ -254,6 +314,11 @@
                                     <RotateTransform3D>
                                         <RotateTransform3D.Rotation>
                                             <AxisAngleRotation3D x:Name="rotation" Axis="0,1,0" Angle="-0"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D x:Name="sitting_rotation" Axis="1,0,0" Angle="0"/>
                                         </RotateTransform3D.Rotation>
                                     </RotateTransform3D>
                                 </Transform3DGroup>
