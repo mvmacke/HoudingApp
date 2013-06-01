@@ -76,7 +76,7 @@
                 <ProgressBar Grid.Row="1" x:Name="statusbar" Width="200" Height="50" Value="100" VerticalAlignment="Top" />
                 <Image x:Name="posture_img" HorizontalAlignment="Center" Height="150"  Grid.Row="1" VerticalAlignment="Top" Width="150" Margin="0 80 0 0" Source="Images/houding-slecht.jpg"/>
 
-                <CheckBox Grid.Row="1" Content="On/Off" IsChecked="False" Margin="10">
+                <CheckBox x:Name="test" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="10">
                     <CheckBox.Triggers>
                         <EventTrigger RoutedEvent="ToggleButton.Checked">
                             <BeginStoryboard>
