@@ -88,10 +88,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Images\staand.jpg" />
+    <Resource Include="Images\houding-fout1.jpg" />
+    <Resource Include="Images\houding-fout2.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="DP_font.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -121,7 +125,6 @@
   <ItemGroup>
     <Resource Include="Images\background.png" />
     <Resource Include="Images\houding-goed.jpg" />
-    <Resource Include="Images\houding-slecht.jpg" />
     <Resource Include="Images\sidebar.png" />
     <Resource Include="Images\Situp-app.png" />
   </ItemGroup>
