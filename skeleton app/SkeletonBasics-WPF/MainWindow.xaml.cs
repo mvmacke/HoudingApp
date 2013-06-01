@@ -139,7 +139,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             pos_bad2.IsChecked = posstatus == 1;
             pos_good.IsChecked = posstatus == 0;
 
-            pos_sitting.IsChecked = true;
+            
+            pos_sitting.IsChecked = !sitting;
         }
         private void sitTimer_Tick(object sender, EventArgs e)
         {
@@ -246,7 +247,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 this.sensor.Stop();
             }
         }
-
+        private int i = 0;
         /// <summary>
         /// Event handler for Kinect sensor's SkeletonFrameReady event
         /// </summary>
@@ -259,14 +260,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 if(!sitTimer.IsEnabled)
                     sitTimer.Start();
-                if (tracked)
-                    sitting = false;
-                title.Content = "ZITTEND";
+                //if (tracked)
+                //    sitting = false;
             }
             else
             {
                 sitTimer.Stop();
-                title.Content = "NIET ZITTEND";
             }
 
             using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
@@ -310,8 +309,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                                 else if (degrees > 15) posstatus = 1;
                                 else posstatus = 0;
                             }
-                            if ((hipCenter.Position.Y - kneeleft.Position.Y) < .2f) sitting = true;
-                            else sitting = false;
+                            if ((hipCenter.Position.Y - kneeleft.Position.Y) < .5f) {
+                                if (i < 20)
+                                {
+                                    i++;
+                                }
+                                else
+                                {
+                                    sitting = true;
+                                    i = 0;
+                                }
+                            }
+                            else { sitting = false; posstatus = 0; }
                             this.DrawBonesAndJoints(skel, dc);
                             tracked = true;
                         }
@@ -383,9 +392,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 {
                     if (joint.JointType == JointType.ShoulderCenter || joint.JointType == JointType.HipCenter || joint.JointType == JointType.KneeLeft || joint.JointType == JointType.KneeRight)
                     {
+                        
                         drawBrush = this.trackedJointBrush;
-                        string text = joint.Position.X.ToString() + joint.Position.Y.ToString() + joint.Position.Z.ToString();
-                        drawingContext.DrawText(new FormattedText(text, CultureInfo.GetCultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface("Verdana"), 12, System.Windows.Media.Brushes.Tomato), SkeletonPointToScreen(joint.Position));
+                        //string text = joint.Position.X.ToString() + joint.Position.Y.ToString() + joint.Position.Z.ToString();
+                        //drawingContext.DrawText(new FormattedText(text, CultureInfo.GetCultureInfo("en-us"), FlowDirection.LeftToRight, new Typeface("Verdana"), 12, System.Windows.Media.Brushes.Tomato), SkeletonPointToScreen(joint.Position));
+                    
+                         //*/
                     }
                 }
                 else if (joint.TrackingState == JointTrackingState.Inferred)

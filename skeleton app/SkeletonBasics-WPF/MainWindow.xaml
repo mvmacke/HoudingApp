@@ -24,7 +24,7 @@
                                     <Image x:Name="UncheckedNormal" Source="Images\UncheckedNormal.png" Stretch="None" HorizontalAlignment="Center"/>
                                     <Image x:Name="UncheckedHover" Source="Images\UncheckedHover.png" Stretch="None" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                 </Grid>
-                                <TextBlock x:Name="SquareCheckBoxText" Text="{TemplateBinding Content}" TextAlignment="Left"  VerticalAlignment="Center" Foreground="{StaticResource KinectPurpleBrush}" FontSize="15"  Margin="9,0,0,0"/>
+                                <TextBlock x:Name="SquareCheckBoxText" Text="{TemplateBinding Content}" TextAlignment="Left"  VerticalAlignment="Center" FontSize="15"  Margin="9,0,0,0"/>
                             </StackPanel>
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -37,7 +37,6 @@
                                 <Setter Property="Visibility" Value="Collapsed" TargetName="UncheckedNormal"/>
                                 <Setter Property="Visibility" Value="Visible" TargetName="CheckedHover"/>
                                 <Setter Property="Visibility" Value="Visible" TargetName="UncheckedHover"/>
-                                <Setter Property="Foreground" Value="{StaticResource KinectBlueBrush}" TargetName="SquareCheckBoxText"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -73,10 +72,10 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Image Height="698" Margin="20" VerticalAlignment="Top" Width="100" Source="Images/Logo.png" HorizontalAlignment="Left"/>
-                <Label Content="SitUp" Foreground="#FDFFFFFF" Cursor="None" FontSize="40" Margin="20" HorizontalAlignment="Right" FontFamily="/DP_font.ttf#Cibreo" />
+                <Label x:Name="title" Content="SitUp" Foreground="#FDFFFFFF" Cursor="None" FontSize="40" Margin="20" HorizontalAlignment="Right" FontFamily="/DP_font.ttf#Cibreo" />
 
                 <ProgressBar Grid.Row="1" x:Name="statusbar" Width="175" Height="50" Value="100" VerticalAlignment="Top" />
-                <CheckBox x:Name="pos_bad1" Grid.Row="1" Content="On/Off" IsChecked="False">
+                <CheckBox x:Name="pos_bad1" Grid.Row="1" Content="On/Off" IsChecked="False" Visibility="Hidden">
                     <CheckBox.Triggers>
                         <EventTrigger RoutedEvent="ToggleButton.Checked">
                             <!-- Rotate to good -->
@@ -96,7 +95,7 @@
                     </CheckBox.Triggers>
                 </CheckBox>
 
-                <CheckBox x:Name="pos_good" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="20">
+                <CheckBox x:Name="pos_good" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="20" Visibility="Hidden">
                     <CheckBox.Triggers>
                         <EventTrigger RoutedEvent="ToggleButton.Checked">
                             <!-- Rotate to good -->
@@ -116,7 +115,7 @@
                     </CheckBox.Triggers>
                 </CheckBox>
 
-                <CheckBox x:Name="pos_bad2" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="40">
+                <CheckBox x:Name="pos_bad2" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="40" Visibility="Hidden">
                     <CheckBox.Triggers>
                         <EventTrigger RoutedEvent="ToggleButton.Checked">
                             <!-- Rotate to bad 2 -->
@@ -136,7 +135,7 @@
                     </CheckBox.Triggers>
                 </CheckBox>
 
-                <CheckBox x:Name="pos_sitting" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="60">
+                <CheckBox x:Name="pos_sitting" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="60" Visibility="Hidden">
                     <CheckBox.Triggers>
                         <EventTrigger RoutedEvent="ToggleButton.Checked">
                             <!-- Rotate to standing -->
