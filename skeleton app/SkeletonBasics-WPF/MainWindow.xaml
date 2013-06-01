@@ -85,17 +85,9 @@
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation 
-        									Storyboard.TargetName="rotation_bad" 
+        									Storyboard.TargetName="rotation" 
         									Storyboard.TargetProperty="Angle" 
         									From="0" To="90" Duration="0:0:0.8">
-                                        <DoubleAnimation.EasingFunction>
-                                            <ElasticEase EasingMode="EaseOut" Oscillations="1" />
-                                        </DoubleAnimation.EasingFunction>
-                                    </DoubleAnimation>
-                                    <DoubleAnimation 
-        									Storyboard.TargetName="rotation_good" 
-        									Storyboard.TargetProperty="Angle" 
-        									From="-90" To="0" Duration="0:0:0.8">
                                         <DoubleAnimation.EasingFunction>
                                             <ElasticEase EasingMode="EaseOut" Oscillations="1" />
                                         </DoubleAnimation.EasingFunction>
@@ -109,17 +101,9 @@
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation 
-        									Storyboard.TargetName="rotation_bad" 
+        									Storyboard.TargetName="rotation" 
         									Storyboard.TargetProperty="Angle" 
         									From="90" To="0" Duration="0:0:0.8">
-                                        <DoubleAnimation.EasingFunction>
-                                            <ElasticEase EasingMode="EaseOut" Oscillations="1" />
-                                        </DoubleAnimation.EasingFunction>
-                                    </DoubleAnimation>
-                                    <DoubleAnimation 
-        									Storyboard.TargetName="rotation_good" 
-        									Storyboard.TargetProperty="Angle" 
-        									From="0" To="-90" Duration="0:0:0.8">
                                         <DoubleAnimation.EasingFunction>
                                             <ElasticEase EasingMode="EaseOut" Oscillations="1" />
                                         </DoubleAnimation.EasingFunction>
@@ -164,6 +148,7 @@
                         <!-- Bad posture! -->
                         <ModelVisual3D>
                             <ModelVisual3D.Content>
+                                <Model3DGroup>
                                 <GeometryModel3D>
                                     <GeometryModel3D.Geometry>
                                         <MeshGeometry3D
@@ -176,7 +161,7 @@
                                         <MaterialGroup>
                                             <DiffuseMaterial>
                                                 <DiffuseMaterial.Brush>
-                                                    <ImageBrush ImageSource="Images/houding-slecht.jpg"/>
+                                                    <ImageBrush ImageSource="Images/houding-fout1.jpg"/>
                                                 </DiffuseMaterial.Brush>
                                             </DiffuseMaterial>
                                         </MaterialGroup>
@@ -184,26 +169,12 @@
                                     <GeometryModel3D.Transform>
                                         <RotateTransform3D>
                                             <RotateTransform3D.Rotation>
-                                                <AxisAngleRotation3D x:Name="rotation_bad" Axis="0,1,0" Angle="0" />
+                                                <AxisAngleRotation3D x:Name="rotation_bad" Axis="0,1,0" Angle="90" />
                                             </RotateTransform3D.Rotation>
                                         </RotateTransform3D>
                                     </GeometryModel3D.Transform>
                                 </GeometryModel3D>
-                            </ModelVisual3D.Content>
-                            <ModelVisual3D.Transform>
-                                <Transform3DGroup>
-                                    <RotateTransform3D d:EulerAngles="0,0,0.0">
-                                        <RotateTransform3D.Rotation>
-                                            <AxisAngleRotation3D Axis="0,0,1" Angle="180"/>
-                                        </RotateTransform3D.Rotation>
-                                    </RotateTransform3D>
-                                </Transform3DGroup>
-                            </ModelVisual3D.Transform>
-                        </ModelVisual3D>
 
-                        <!-- Bad posture! -->
-                        <ModelVisual3D>
-                            <ModelVisual3D.Content>
                                 <GeometryModel3D>
                                     <GeometryModel3D.Geometry>
                                         <MeshGeometry3D
@@ -221,20 +192,46 @@
                                             </DiffuseMaterial>
                                         </MaterialGroup>
                                     </GeometryModel3D.Material>
-                                    <GeometryModel3D.Transform>
-                                        <RotateTransform3D>
-                                            <RotateTransform3D.Rotation>
-                                                <AxisAngleRotation3D x:Name="rotation_good" Axis="0,1,0" Angle="45" />
-                                            </RotateTransform3D.Rotation>
-                                        </RotateTransform3D>
-                                    </GeometryModel3D.Transform>
+                                  
                                 </GeometryModel3D>
+
+                                    <GeometryModel3D>
+                                        <GeometryModel3D.Geometry>
+                                            <MeshGeometry3D
+        									TriangleIndices="0,1,2 3,4,5 "
+        									Normals="0,0,1 0,0,1 0,0,1 0,0,1 0,0,1 0,0,1"
+        									TextureCoordinates="1,0 0,0 0,1 0,1 1,1 1,0"
+        									Positions="-0.5,-0.5,0.5 0.5,-0.5,0.5 0.5,0.5,0.5 0.5,0.5,0.5 -0.5,0.5,0.5 -0.5,-0.5,0.5" />
+                                        </GeometryModel3D.Geometry>
+                                        <GeometryModel3D.Material>
+                                            <MaterialGroup>
+                                                <DiffuseMaterial>
+                                                    <DiffuseMaterial.Brush>
+                                                        <ImageBrush ImageSource="Images/houding-fout2.png"/>
+                                                    </DiffuseMaterial.Brush>
+                                                </DiffuseMaterial>
+                                            </MaterialGroup>
+                                        </GeometryModel3D.Material>
+                                        <GeometryModel3D.Transform>
+                                            <RotateTransform3D>
+                                                <RotateTransform3D.Rotation>
+                                                    <AxisAngleRotation3D Axis="0,1,0" Angle="-90" />
+                                                </RotateTransform3D.Rotation>
+                                            </RotateTransform3D>
+                                        </GeometryModel3D.Transform>
+                                    </GeometryModel3D>
+                                </Model3DGroup>
                             </ModelVisual3D.Content>
                             <ModelVisual3D.Transform>
                                 <Transform3DGroup>
-                                    <RotateTransform3D d:EulerAngles="0,0,0.0">
+                                    <RotateTransform3D>
                                         <RotateTransform3D.Rotation>
                                             <AxisAngleRotation3D Axis="0,0,1" Angle="180"/>
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <RotateTransform3D>
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D x:Name="rotation" Axis="0,1,0" Angle="-0"/>
                                         </RotateTransform3D.Rotation>
                                     </RotateTransform3D>
                                 </Transform3DGroup>
