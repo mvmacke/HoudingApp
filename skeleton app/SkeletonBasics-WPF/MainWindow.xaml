@@ -76,10 +76,8 @@
                 <Label Content="SitUp" Foreground="#FDFFFFFF" Cursor="None" FontSize="40" Margin="20" HorizontalAlignment="Right" FontFamily="/DP_font.ttf#Cibreo" />
 
                 <ProgressBar Grid.Row="1" x:Name="statusbar" Width="200" Height="50" Value="100" VerticalAlignment="Top" />
-                <CheckBox x:Name="testbox" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="10">
-
+                <CheckBox x:Name="pos_bad1" Grid.Row="1" Content="On/Off" IsChecked="False">
                     <CheckBox.Triggers>
-                       
                         <EventTrigger RoutedEvent="ToggleButton.Checked">
                             <!-- Rotate to good -->
                             <BeginStoryboard>
@@ -87,7 +85,7 @@
                                     <DoubleAnimation 
         									Storyboard.TargetName="rotation" 
         									Storyboard.TargetProperty="Angle" 
-        									From="0" To="90" Duration="0:0:0.8">
+        									To="90" Duration="0:0:0.8">
                                         <DoubleAnimation.EasingFunction>
                                             <ElasticEase EasingMode="EaseOut" Oscillations="1" />
                                         </DoubleAnimation.EasingFunction>
@@ -95,15 +93,39 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
+                    </CheckBox.Triggers>
+                </CheckBox>
 
-                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
-                            <!-- Rotate to bad -->
+                <CheckBox x:Name="pos_good" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="20">
+                    <CheckBox.Triggers>
+                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                            <!-- Rotate to good -->
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation 
         									Storyboard.TargetName="rotation" 
         									Storyboard.TargetProperty="Angle" 
-        									From="90" To="0" Duration="0:0:0.8">
+        									To="0" Duration="0:0:0.8">
+                                        <DoubleAnimation.EasingFunction>
+                                            <ElasticEase EasingMode="EaseOut" Oscillations="1" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </CheckBox.Triggers>
+                </CheckBox>
+
+                <CheckBox x:Name="pos_bad2" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="40">
+                    <CheckBox.Triggers>
+                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                            <!-- Rotate to bad 2 -->
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation 
+        									Storyboard.TargetName="rotation" 
+        									Storyboard.TargetProperty="Angle" 
+        									To="-90" Duration="0:0:0.8">
                                         <DoubleAnimation.EasingFunction>
                                             <ElasticEase EasingMode="EaseOut" Oscillations="1" />
                                         </DoubleAnimation.EasingFunction>

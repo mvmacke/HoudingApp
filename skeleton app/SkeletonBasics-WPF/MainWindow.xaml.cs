@@ -132,7 +132,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 statusbar.Foreground = greenbrush;
                 if (statusbar.Value == 100) statusbar.Background = greybrush;               
             }
-            testbox.IsChecked = posstatus == 0;
+
+            pos_bad1.IsChecked = posstatus == -1;
+            pos_bad2.IsChecked = posstatus == 1;
+            pos_good.IsChecked = posstatus == 0;
         }
 
         /// <summary>
