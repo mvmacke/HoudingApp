@@ -76,8 +76,8 @@
                 <Label Content="SitUp" Foreground="#FDFFFFFF" Cursor="None" FontSize="40" Margin="30" HorizontalAlignment="Right" />
 
                 <ProgressBar Grid.Row="1" x:Name="statusbar" Width="200" Height="50" Value="100" VerticalAlignment="Top" />
-                
                 <CheckBox x:Name="testbox" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="10">
+
                     <CheckBox.Triggers>
                        
                         <EventTrigger RoutedEvent="ToggleButton.Checked">

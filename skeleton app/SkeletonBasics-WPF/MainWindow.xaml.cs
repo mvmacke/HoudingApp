@@ -116,7 +116,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 if (statusbar.Value == 0)
                 {
                     statusbar.Background = redbrush;
-                    if(a.status == ""){                        
+                    if(a.status == ""){
                         a.URL = "alarm.mp3";
                         a.controls.play();
                     }
@@ -266,13 +266,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         {
                             Joint shoulderCenter = (from j in skel.Joints where j.JointType == JointType.ShoulderCenter select j).FirstOrDefault();
                             Joint hipCenter = (from j in skel.Joints where j.JointType == JointType.HipCenter select j).FirstOrDefault();
+                            Joint kneeleft = (from j in skel.Joints where j.JointType == JointType.KneeLeft select j).FirstOrDefault();
+                            Joint kneeright = (from j in skel.Joints where j.JointType == JointType.KneeRight select j).FirstOrDefault();                            
                             double x = shoulderCenter.Position.X - hipCenter.Position.X;
                             double y = shoulderCenter.Position.Y - hipCenter.Position.Y;
                             double degrees = Math.Atan2(x, y) * 180/Math.PI;
-                            if(degrees < -15) posstatus = -1;
-                            else if(degrees > 15) posstatus = 1;
-                            else posstatus = 0;
-                                                  
+                            if (kneeleft.Position.X < hipCenter.Position.X)
+                            {
+                                if (degrees < -15) posstatus = 1;
+                                else if (degrees > 15) posstatus = -1;
+                                else posstatus = 0;
+                            }
+                            else
+                            {
+                                if (degrees < -15) posstatus = -1;
+                                else if (degrees > 15) posstatus = 1;
+                                else posstatus = 0;
+                            } 
                             this.DrawBonesAndJoints(skel, dc);
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
@@ -334,7 +344,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 Brush drawBrush = null;                
                 if (joint.TrackingState == JointTrackingState.Tracked)
                 {
-                    if (joint.JointType.ToString() == "ShoulderCenter" || joint.JointType.ToString() == "HipCenter")
+                    if (joint.JointType == JointType.ShoulderCenter || joint.JointType == JointType.HipCenter || joint.JointType == JointType.KneeLeft || joint.JointType == JointType.KneeRight)
                     {
                         drawBrush = this.trackedJointBrush;
                         string text = joint.Position.X.ToString() + joint.Position.Y.ToString() + joint.Position.Z.ToString();
