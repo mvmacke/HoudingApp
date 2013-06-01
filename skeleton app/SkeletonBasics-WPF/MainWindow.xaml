@@ -73,9 +73,9 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Image Height="698" Margin="20" VerticalAlignment="Top" Width="100" Source="Images/Logo.png" HorizontalAlignment="Left"/>
-                <Label Content="SitUp" Foreground="#FDFFFFFF" Cursor="None" FontSize="40" Margin="30" HorizontalAlignment="Right" />
+                <Label x:Name="title" Content="SitUp" Foreground="#FDFFFFFF" Cursor="None" FontSize="40" Margin="30" HorizontalAlignment="Right" FontFamily="Verdana" />
 
-                <ProgressBar Grid.Row="1" x:Name="statusbar" Width="200" Height="50" Value="100" VerticalAlignment="Top" />
+                <ProgressBar Grid.Row="1" x:Name="statusbar" Width="175" Height="50" Value="100" VerticalAlignment="Top" />
                 <CheckBox x:Name="testbox" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="10">
 
                     <CheckBox.Triggers>
@@ -134,8 +134,8 @@
 
                     <!-- The Viewport3D provides a rendering surface for 3-D visual content. -->
                     <Viewport3D x:Name="MyAnimatedObject"
-        				ClipToBounds="True" Width="300" Height="300"
-        				Canvas.Left="0" Canvas.Top="0">
+        				ClipToBounds="True" Width="300" Height="300" Canvas.Left="-20"                                
+        				 >
 
                         <!-- Defines the camera used to view the 3D object. -->
                         <Viewport3D.Camera>

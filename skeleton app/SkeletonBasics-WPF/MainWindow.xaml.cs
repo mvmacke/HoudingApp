@@ -93,6 +93,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <summary>
         /// Drawing image that we will display
         /// </summary>
+        private bool tracked;
+        private bool sitting;
         private DrawingImage imageSource;
         WMPLib.WindowsMediaPlayer a = new WMPLib.WindowsMediaPlayer();
         private int posstatus = 0;
@@ -116,7 +118,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 if (statusbar.Value == 0)
                 {
                     statusbar.Background = redbrush;
-                    if(a.status == ""){
+                    if(a.playState != WMPLib.WMPPlayState.wmppsPlaying){
                         a.URL = "alarm.mp3";
                         a.controls.play();
                     }
@@ -134,18 +136,25 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             testbox.IsChecked = posstatus == 0;
         }
+        private void sitTimer_Tick(object sender, EventArgs e)
+        {
+            
+        }
 
         /// <summary>
         /// Execute startup tasks
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
+        private System.Windows.Threading.DispatcherTimer sitTimer = new System.Windows.Threading.DispatcherTimer();
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0,0,0,0,100);
-            dispatcherTimer.Start();
+            dispatcherTimer.Start();            
+            sitTimer.Tick += new EventHandler(sitTimer_Tick);
+            sitTimer.Interval = new TimeSpan(0, 0, 5);            
             // Create the drawing group we'll use for drawing
             this.drawingGroup = new DrawingGroup();
             // Create an image source that we can use in our image control
@@ -241,6 +250,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void SensorSkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
             Skeleton[] skeletons = new Skeleton[0];
+            if (sitting)
+            {
+                if(!sitTimer.IsEnabled)
+                    sitTimer.Start();
+                if (tracked)
+                    sitting = false;
+                title.Content = "ZITTEND";
+            }
+            else
+            {
+                sitTimer.Stop();
+                title.Content = "NIET ZITTEND";
+            }
 
             using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
             {
@@ -267,10 +289,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                             Joint shoulderCenter = (from j in skel.Joints where j.JointType == JointType.ShoulderCenter select j).FirstOrDefault();
                             Joint hipCenter = (from j in skel.Joints where j.JointType == JointType.HipCenter select j).FirstOrDefault();
                             Joint kneeleft = (from j in skel.Joints where j.JointType == JointType.KneeLeft select j).FirstOrDefault();
-                            Joint kneeright = (from j in skel.Joints where j.JointType == JointType.KneeRight select j).FirstOrDefault();                            
+                            Joint kneeright = (from j in skel.Joints where j.JointType == JointType.KneeRight select j).FirstOrDefault();
                             double x = shoulderCenter.Position.X - hipCenter.Position.X;
                             double y = shoulderCenter.Position.Y - hipCenter.Position.Y;
-                            double degrees = Math.Atan2(x, y) * 180/Math.PI;
+                            double degrees = Math.Atan2(x, y) * 180 / Math.PI;
                             if (kneeleft.Position.X < hipCenter.Position.X)
                             {
                                 if (degrees < -15) posstatus = 1;
@@ -282,8 +304,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                                 if (degrees < -15) posstatus = -1;
                                 else if (degrees > 15) posstatus = 1;
                                 else posstatus = 0;
-                            } 
+                            }
+                            if ((hipCenter.Position.Y - kneeleft.Position.Y) < .2f) sitting = true;
+                            else sitting = false;
                             this.DrawBonesAndJoints(skel, dc);
+                            tracked = true;
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
                         {
@@ -293,8 +318,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                             this.SkeletonPointToScreen(skel.Position),
                             BodyCenterThickness,
                             BodyCenterThickness);
+                            posstatus = 0;
+                            tracked = false;
                         }
                     }
+                }
+                else
+                {
+                    posstatus = 0;
+                    tracked = false;
                 }
 
                 // prevent drawing outside of our render area
