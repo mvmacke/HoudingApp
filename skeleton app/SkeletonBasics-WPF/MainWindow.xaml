@@ -56,10 +56,10 @@
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
 
-        <Viewbox Grid.Column="0" Stretch="UniformToFill" HorizontalAlignment="Center" Margin="20">
+        <Viewbox Grid.Column="0" Stretch="UniformToFill" HorizontalAlignment="Left" Margin="20">
             <Image x:Name="Image" Width="640" Height="480"/>
         </Viewbox>
-        <Viewbox Grid.Column="0" Stretch="UniformToFill" HorizontalAlignment="Center" Margin="20">
+        <Viewbox Grid.Column="0" Stretch="UniformToFill" HorizontalAlignment="Left" Margin="20">
             <Image x:Name="Image1" Width="640" Height="480"/>
         </Viewbox>
 
@@ -73,7 +73,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Image Height="698" Margin="20" VerticalAlignment="Top" Width="100" Source="Images/Logo.png" HorizontalAlignment="Left"/>
-                <Label Content="SitUp" Foreground="#FDFFFFFF" Cursor="None" FontSize="40" Margin="20" HorizontalAlignment="Right" />
+                <Label Content="SitUp" Foreground="#FDFFFFFF" Cursor="None" FontSize="40" Margin="20" HorizontalAlignment="Right" FontFamily="/DP_font.ttf#Cibreo" />
 
                 <ProgressBar Grid.Row="1" x:Name="statusbar" Width="200" Height="50" Value="100" VerticalAlignment="Top" />
                 <CheckBox x:Name="testbox" Grid.Row="1" Content="On/Off" IsChecked="False" Margin="10">
